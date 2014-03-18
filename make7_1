@@ -1,0 +1,2 @@
+epi7_1: linked_list.cpp utils.cpp epi7_1.cpp
+	g++ -I. linked_list.cpp utils.cpp epi7_1.cpp -o epi7_1 

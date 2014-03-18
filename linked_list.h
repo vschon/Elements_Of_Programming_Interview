@@ -36,7 +36,7 @@ public:
     void deleteNode(T info);
     bool isInList(T info) const;
     void display();
-private:
+public:
     Node<T>* head;
     Node<T>* tail;
 };

@@ -117,7 +117,7 @@ template<typename T>
 void LinkedList<T>::display() {
     if (!isEmpty()) {
         Node<T>* temp;
-        for(temp = head; temp != tail; temp = temp->next) {
+        for(temp = head; temp != 0; temp = temp->next) {
             cout << temp->data << " ";
         }
     cout << endl;
