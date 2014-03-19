@@ -9,6 +9,9 @@
 #include <vector>
 #include <string>
 #include <list>
+#include <stack>
 #include <algorithm>
+#include <utility>
+
 
 #endif
