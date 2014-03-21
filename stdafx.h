@@ -4,6 +4,7 @@
 #include "linked_list.cpp"
 #include "stack.h"
 #include "utils.h"
+#include "binary_tree.h"
 
 #include <sstream>
 #include <vector>
