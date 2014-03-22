@@ -5,6 +5,7 @@
 #include "stack.h"
 #include "utils.h"
 #include "binary_tree.h"
+#include "heap.h"
 
 #include <sstream>
 #include <vector>
