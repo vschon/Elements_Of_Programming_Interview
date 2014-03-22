@@ -24,6 +24,9 @@ public:
         for(typename std::vector<T>::iterator it = heapArray.begin(); it != heapArray.end(); it++)
             std::cout << *it << "  ";
     } 
+    void reheapTopDown(vector<T>& unsortedArray);
+    void reheapBottomUp(vector<T>& unsortedArray);
+
 
 protected:
     void moveUp(size_t nodeIndex);
@@ -31,9 +34,6 @@ protected:
     size_t parent(size_t nodeIndex) {return (nodeIndex - 1)/2;}
     size_t leftChild(size_t nodeIndex) {return (2 * nodeIndex + 1);}
     size_t rightChild(size_t nodeIndex) {return (2 * nodeIndex + 2);}
-    void reheapTopDown(size_t location);
-    void reheapBottomUp(size_t location);
-
 protected:
     std::vector<T> heapArray;
 };
@@ -95,5 +95,24 @@ T Heap<T>::pop() {
     return temp;
 }
 
+template<typename T>
+void Heap<T>::reheapTopDown(vector<T>& unsortedArray) {
+    heapArray.clear();
+    for(typename vector<T>::iterator it = unsortedArray.begin(); it != unsortedArray.end(); it++)
+        insert(*it);
+}
+
+template<typename T>
+void Heap<T>::reheapBottomUp(vector<T>& unsortedArray) {
+    heapArray.clear();
+    heapArray = unsortedArray;
+    
+    int lastNonLeafIndex = heapArray.size() / 2 - 1; 
+    
+    while(lastNonLeafIndex >= 0) {
+        moveDown(lastNonLeafIndex);
+        lastNonLeafIndex--;
+    }
+}
 
 #endif

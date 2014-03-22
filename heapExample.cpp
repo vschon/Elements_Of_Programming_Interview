@@ -20,6 +20,18 @@ int main() {
     h.pop();
     h.display();
     cout << endl;
+
+    vector<int> v = {10, 20, 30, 5, 25, 15, 35};
+    h.reheapTopDown(v);
+    h.display();
+
+    vector<int> v2 = {10, 20, 30, 5, 25, 15, 35};
+
+    cout << endl; 
+    h.reheapBottomUp(v2);
+    h.display();
+    cout << endl;
+    
     return 0;
 
 }
