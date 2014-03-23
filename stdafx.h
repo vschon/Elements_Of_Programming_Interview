@@ -6,6 +6,7 @@
 #include "utils.h"
 #include "binary_tree.h"
 #include "heap.h"
+#include "hash_table.h"
 
 #include <sstream>
 #include <vector>
@@ -14,6 +15,8 @@
 #include <stack>
 #include <algorithm>
 #include <utility>
+#include <unordered_map>
+#include <stdexcept>
 
 
 #endif
