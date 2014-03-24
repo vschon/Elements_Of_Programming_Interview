@@ -7,6 +7,7 @@
 #include "binary_tree.h"
 #include "heap.h"
 #include "hash_table.h"
+#include "sort_algorithm.h"
 
 #include <sstream>
 #include <vector>
