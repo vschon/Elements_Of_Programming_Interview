@@ -96,3 +96,78 @@ void CountSort(vector<long>& S) {
 }
         
     
+template<typename T>
+void QuickSort(vector<T>& S) {
+    //Preprocess
+    if(S.size() < 2) {
+        return;
+    }
+    //Move the largest element to the last
+    size_t maxIndex = 0;
+    for(size_t i = 0; i < S.size(); i++) {
+        maxIndex = S[maxIndex] < S[i] ? i : maxIndex;
+    }
+
+    swap<T>(S[maxIndex], S.back());
+
+
+    //
+}
+        
+template<typename T>
+void QuickSort(vector<T>& S, int first, int last){
+
+    int lower = first + 1;
+    int upper = last;
+
+    //the index of pivot = (first + last / 2)
+    //put the pivot to the first place of the array;
+    
+    swap<T>(S[first] + S[(first + last)/2]);
+    T pivot = S[first];
+
+    //begin iteration
+    while(lower <= upper) {
+        //move lower index from left to right until it meets an element larger than pivot
+        //move upper index from right to left until it meets an element smaller than pivor
+
+        while(pivot > S[lower])
+            lower++;
+        while(pivot < S[upper])
+            upper--;
+        //swap the position of elements that are out of order
+        if(lower < upper) {
+            swap<T>(S[lower], S[upper]);
+            lower++;
+            upper--;
+        }
+    }
+} 
+
+template<typename T>
+void ShellSort(vector<T>& S) {
+    vector<int> increment;
+    int hCount, h;
+    //fill in the increment array
+    for(hCount = 0, h = 1; h < S.size(); i++) {
+        increment[hCount] = h;
+        h = 3*h + 1;
+    } 
+
+    //the increment array is not full, should remember the last index as hCount 
+    int subArray;
+    for(hCount = increment.size() - 1; hCount >=0; hCount--) {
+        //begin from the largest step
+        h = h[i];
+        subArray = h;
+
+        //divided the array into h subarrays in place
+        //sort each subarray respectively
+        for(int j = h; j < S.size(); j = j + h) {
+            T temp = h[j];
+            while((j - h >= 0) && S[j] < temp) {
+                S[j] = S[j-h];
+            }
+        }
+    }
+}
