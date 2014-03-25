@@ -1,4 +1,15 @@
 #include <vector>
+#include "heap.h"
+#include <algorithm>
+#include <iostream>
+
+template<typename T>
+void printArray(std::vector<T> &S) {
+    for(auto num : S) {
+        cout << num << "  ";
+    }
+    cout << endl;
+}
 
 template<typename T>
 void InsertionSort(std::vector<T>& S) {
@@ -146,28 +157,84 @@ void QuickSort(vector<T>& S, int first, int last){
 
 template<typename T>
 void ShellSort(vector<T>& S) {
-    vector<int> increment;
-    int hCount, h;
+    vector<int> increment(20, 0);
+    int hCount;// index of the h
+    int h;
     //fill in the increment array
-    for(hCount = 0, h = 1; h < S.size(); i++) {
+    for(hCount = 0, h = 1; h < S.size(); hCount++) {
         increment[hCount] = h;
         h = 3*h + 1;
     } 
-
+    
     //the increment array is not full, should remember the last index as hCount 
-    int subArray;
-    for(hCount = increment.size() - 1; hCount >=0; hCount--) {
-        //begin from the largest step
-        h = h[i];
-        subArray = h;
 
+    hCount--;
+    int subArray;//the beginning index of subArray: 0, 1, ..., h-1
+    for(; hCount >=0; hCount--) {
+        //begin from the largest step
+        h = increment[hCount];
         //divided the array into h subarrays in place
         //sort each subarray respectively
-        for(int j = h; j < S.size(); j = j + h) {
-            T temp = h[j];
-            while((j - h >= 0) && S[j] < temp) {
-                S[j] = S[j-h];
+        for(subArray = h; subArray < 2 * h; subArray++) {
+            for(int j = h; j < S.size(); j = j + h) {
+                T temp = S[j];
+                int k = j;
+                while((k - h >= 0) && S[k-h] > temp) {
+                    S[k] = S[k-h];
+                    k = k - h;
+                }
+                S[k] = temp;
             }
         }
+    }
+}
+
+template<typename T>
+void MoveDown(vector<T>& S, int end, int nodeIndex) { 
+    /*
+    psudo code
+    
+    while the node has leaf:
+        find the largest child of the node
+        if the node is smaller than the largest child
+            swap the value of node and largest 
+            set the node pointing to the largest child
+    */
+
+    int left = 2 * nodeIndex + 1;
+    int right = 2 * nodeIndex + 2;
+    int largestIndex = left;
+
+    while(left < end) {
+        if(right < end && S[right] > S[left])
+            largestIndex = right;
+        if(S[largestIndex] > S[nodeIndex]) {
+            swap<T>(S[largestIndex], S[nodeIndex]);
+            nodeIndex = largestIndex;
+            left = 2 * nodeIndex + 1;
+            right = 2 * nodeIndex + 2;
+            largestIndex = left;
+        }
+        else break;
+    }
+
+}
+
+template<typename T>
+void HeapSort(vector<T>& S) {
+    //reheap the array
+    //start from the last non-leaf node, and move down the node if it is 
+    //smaller than its descendants.
+    for(int i = S.size()/2 - 1; i >=0; i--) {
+        MoveDown<T>(S, S.size(), i);
+    }
+    
+    swap<T>(S[0], S[S.size() - 1]);
+
+    //Swap the first(max) and the last
+    //MoveDown(first) for vector[0:n-2], and continue this step 
+    for(size_t i = S.size() - 2;i > 0; i--) {
+        MoveDown(S, i, 0);
+        swap<T>(S[0], S[i]);
     }
 }

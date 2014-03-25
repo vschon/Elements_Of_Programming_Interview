@@ -49,5 +49,21 @@ int main() {
     CountSort(A);
     print(A);
 
+    cout << "Shell sort: " << endl;
+    vector<int> M;
+    for(size_t i = 0; i < 20; i++){
+        M.push_back(20-i);
+    }
+    print(M);
+    ShellSort<int>(M);
+    print(M);
+
+    cout << "Heap sort: " << endl;
+    vector<int> B = {11,23,43,10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+
+    print(B);
+    HeapSort<int>(B);
+    print(B);
+
     return 0;
 }
