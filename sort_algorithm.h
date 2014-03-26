@@ -238,3 +238,55 @@ void HeapSort(vector<T>& S) {
         swap<T>(S[0], S[i]);
     }
 }
+
+template<typename T>
+void Merge(vector<T>&S, int begin, int cut, int end) {
+    //merge the S[begin] to S[end-1](inclusive) 
+    vector<T> temp((end - begin), 0);
+    int index1 = begin;
+    int index2 = cut; 
+    int tempIndex = 0;
+
+    while(index1 < cut && index2 < end) {
+        //while there are elements remaining in the two subarray
+        if(S[index1] <= S[index2])
+            temp[tempIndex++] = S[index1++];
+        else
+            temp[tempIndex++] = S[index2++];
+    }
+
+
+    if(index1 < cut) {
+        while(index1 < cut)
+            temp[tempIndex++] = S[index1++];
+    }
+    else if(index2 < end) {
+        while(index2 < end)
+            temp[tempIndex++] = S[index2++];
+    }
+
+    int index = begin;
+    for(auto num : temp) {
+        S[index] = num;
+        index++;
+    }
+
+}
+            
+template<typename T>
+void MergeSortRecursion(vector<T>& S, int begin, int end) {
+    if((end - begin) >= 2) {
+        int cut = (begin + end) / 2;
+        MergeSortRecursion(S, begin, cut); //sort begin to mid+1 
+        MergeSortRecursion(S, cut, end); //sort mid+1 to end
+        Merge(S, begin, cut, end);
+    }
+}
+
+
+template<typename T>
+void MergeSortRecursion(vector<T>& S) {
+    MergeSortRecursion(S, 0, S.size());
+}
+
+

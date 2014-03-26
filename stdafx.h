@@ -8,6 +8,7 @@
 #include "heap.h"
 #include "hash_table.h"
 #include "sort_algorithm.h"
+#include "graph.h"
 
 #include <sstream>
 #include <vector>

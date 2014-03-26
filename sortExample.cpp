@@ -60,10 +60,19 @@ int main() {
 
     cout << "Heap sort: " << endl;
     vector<int> B = {11,23,43,10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
-
     print(B);
     HeapSort<int>(B);
     print(B);
 
-    return 0;
+    cout << "Merge sort: " << endl;
+    
+    vector<int> C;
+    for(size_t i = 0; i < 20; i++){
+        C.push_back(20-i);
+    }
+    print(C);
+    MergeSortRecursion<int>(C);
+    print(C);
+
+   return 0;
 }
