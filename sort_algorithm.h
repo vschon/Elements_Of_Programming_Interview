@@ -2,6 +2,7 @@
 #include "heap.h"
 #include <algorithm>
 #include <iostream>
+#include <queue>
 
 template<typename T>
 void printArray(std::vector<T> &S) {
@@ -287,6 +288,59 @@ void MergeSortRecursion(vector<T>& S, int begin, int end) {
 template<typename T>
 void MergeSortRecursion(vector<T>& S) {
     MergeSortRecursion(S, 0, S.size());
+}
+
+void RadixSort(vector<int>& S) {
+    /*
+    find the largest number max in the array
+    digit: number of digits of max
+    radix = 10
+    factor = 1
+    array of queues from 0 - 9
+    for d = 1:digit
+        for num in S:
+            i = d_th digit of num
+            put the number into queue_i
+        for j = 0:9
+            dequeue all elements of queue_i to temparray
+    */
+
+    //find the max of S
+    int max(0);
+    for(size_t i  = 0; i < S.size(); i++) {
+        max = max < S[i]? S[i] : max;
+    }
+    int digits = 1;
+    while(max != 0) {
+        max = max%10;
+        digits++;
+    }
+    
+    int radix = 10;
+    int factor = 1;
+    vector<queue<int> > q;    
+    for(int l = 0; l < radix; l++) {
+        q.push_back(queue<int>());
+    }
+
+    int temp = 0;
+    for(int d = 1; d <= digits; d++) {
+        for(auto num : S) {
+            temp = num / factor;
+            temp = temp%radix;
+            q[temp].push(num);
+        }
+        factor = factor * radix;
+        
+        int index = 0;
+        for(int k = 0; k < radix; k++) {
+            while (!q[k].empty()) {
+                S[index] = q[k].front();
+                q[k].pop();
+                index++;
+            }
+        }
+    }
 }
 
 

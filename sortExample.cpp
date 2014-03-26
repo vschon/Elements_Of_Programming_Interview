@@ -74,5 +74,14 @@ int main() {
     MergeSortRecursion<int>(C);
     print(C);
 
+    cout << "Radix sort: " << endl;
+    vector<int> D;
+    for(size_t i = 0; i < 20; i++){
+        D.push_back(20-i);
+    }
+    print(D);
+    RadixSort(D);
+    //print(C);
+   
    return 0;
 }
