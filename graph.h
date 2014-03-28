@@ -42,7 +42,7 @@ public:
     //void dijkstra(int)
 };
 
-//adjacency matrix implementation
+
 template <typename Tv> class Vertex {
 public:
     Tv data;
@@ -61,8 +61,7 @@ public:
     EStatus status;
 };
 
-
-
+//adjacency matrix implementation
 
 template<typename Tv, typename Te>
 class GraphMatrix: public Graph<Tv, Te> {
@@ -149,6 +148,7 @@ public:
             V[vIndex2].inDegree++;
         }
     }
+
     virtual Te removeEdge(int vIndex1, int vIndex2) {
         Te temp = edge(vIndex1, vIndex2);
         delete E[vIndex1][vIndex2];
@@ -159,4 +159,18 @@ public:
         return temp;
     }
 
+    //BFS
+    virtual void depthFirstSearchByNode(int vIndex) {
+
+    }
+    
+    virtual void depthFirstSearch() {
+        for (size_t i = 0; i < V.size(); i++) {
+            Vertex<Tv> temp = V[i];
+            if (temp.status == UNDISCOVERED) {
+                cout << temp.data << "  "; 
+            }
+            //depthFirstSearchByNode(vIndex);
+        }
+    }
 };

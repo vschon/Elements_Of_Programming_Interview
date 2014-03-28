@@ -2,16 +2,31 @@
 using namespace std;
 
 int main() {
-    GraphMatrix<int, int> g;
-    cout << "insert first vertex \n";
-    g.insertVertex(1);
-    g.insertVertex(2);
-    cout << "Total vertices : " << g.vertexCount << endl;
-    cout << "Edge between node 0 and 0? " << g.exists(0,0) << endl;
+    GraphMatrix<string, int> g;
+    cout << "insert vertices a - g \n";
+    g.insertVertex("a");//0
+    g.insertVertex("b");//1
+    g.insertVertex("c");//2
+    g.insertVertex("d");//3
+    //g.insertVertex("e");//5
+    //g.insertVertex("f");//6
+    //g.insertVertex("g");//7
+    //g.insertVertex("h");//8
+    //g.insertVertex("i");//9
+
+
+    g.insertEdge(0, 0, 1, 1); g.insertEdge(0, 1, 0, 1);
+    g.insertEdge(0, 0, 2, 1); g.insertEdge(0, 2, 0, 1);
+    g.insertEdge(0, 0, 3, 1); g.insertEdge(0, 3, 0, 1);
+    g.insertEdge(0, 1, 2, 1); g.insertEdge(0, 2, 1, 1);
+    g.insertEdge(0, 1, 3, 1); g.insertEdge(0, 3, 1, 1);
+    g.insertEdge(0, 2, 3, 1); g.insertEdge(0, 3, 2, 1);
+
+    //DFS
+    cout << "Begin DFS " << endl;
+    g.depthFirstSearch();
     cout << endl;
-    cout << "Remove the 0_th node\n";
-    g.removeVertex(0);
-    cout << "Total vertices : " << g.vertexCount << endl;
+
     return 0;
 }
 

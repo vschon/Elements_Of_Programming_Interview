@@ -81,7 +81,7 @@ int main() {
     }
     print(D);
     RadixSort(D);
-    //print(C);
+    print(D);
    
    return 0;
 }
