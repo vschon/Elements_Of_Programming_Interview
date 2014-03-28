@@ -1,7 +1,7 @@
 #include <vector>
 
 
-typedef enum {UNDISCOVERED, DISCOVERED, VISITED} VStatus;
+typedef enum {UNVISITED, VISITED} VStatus; 
 typedef enum {UNDETERMINED, TREE, CROSS, FORWARD, BACKWARD} EStatus;
 
 template <typename Tv, typename Te>
@@ -49,7 +49,7 @@ public:
     int inDegree, outDegree;
     VStatus status;
 public:
-    Vertex(Tv const& data_) : data(data_), inDegree(0), outDegree(0), status(UNDISCOVERED) {}
+    Vertex(Tv const& data_) : data(data_), inDegree(0), outDegree(0), status(UNVISITED) {}
 };
 
 template <typename Te> class Edge {
@@ -160,17 +160,46 @@ public:
     }
 
     //BFS
-    virtual void depthFirstSearchByNode(int vIndex) {
-
+    virtual void depthFirstSearchByNode(int vIndex1) {
+        cout << "Visting " << V[vIndex1].data << endl; 
+        V[vIndex1].status = VISITED;
+        for (int vIndex2 = 0; vIndex2 < V.size(); vIndex2++) {
+            if (exists(vIndex1, vIndex2) && V[vIndex2].status != VISITED) {
+                depthFirstSearchByNode(vIndex2); 
+            }
+        }
     }
     
     virtual void depthFirstSearch() {
         for (size_t i = 0; i < V.size(); i++) {
-            Vertex<Tv> temp = V[i];
-            if (temp.status == UNDISCOVERED) {
-                cout << temp.data << "  "; 
+            if (V[i].status == UNVISITED) {
+                depthFirstSearchByNode(i);
             }
-            //depthFirstSearchByNode(vIndex);
+        }
+    }
+    
+    virtual void breadthFirstSearchByNode(int vIndex1) {
+        queue<int> q;
+        q.push(vIndex1);
+
+        while (!q.empty()) {
+            int index = q.front();
+            q.pop();
+            cout << "Visiting " << V[index].data << endl;
+            V[index].status = VISITED;
+            for (int vIndex2 = 0; vIndex2 < V.size(); vIndex2++) {
+                if (exists(index, vIndex2) && V[vIndex2].status != VISITED) {
+                    q.push(vIndex2);
+                }
+            }
+        }
+    }
+
+    virtual void breadthFirstSearch() {
+        for (size_t i = 0; i < V.size(); i++) {
+            if (V[i].status == UNVISITED) {
+                breadthFirstSearchByNode(i);
+            }
         }
     }
 };
